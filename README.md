@@ -1,0 +1,7 @@
+This is an early stage project by Scott Williams
+
+The goal of this project is to incorporate three use cases of generative AI to create short (and possibly long) form content to post on youtube shorts / tiktok / instagram. The content will mainly be news videos tailored to people in the age range of 18 to 30 years old and will summarize daily events in different news niches. The research will be conducted through a combination of web scraping tactics and filtering/ summarization using GPT-3.5. For actually writing the news scripts, I am currently working on incorporating a dual "agent" strategy where the summarized articles will be utilized by one instange of GPT to create a rough draft, then checked by another instance, acting as the editor, to see if the script is up to a certain standard or similar to a certain author's style. Additionally, the editor could say that more sources of a different nature (primary, secondary) are needed to make the article more informative. Essentially the two instances of GPT will function similar to a GAN, where one model acts as a generator, and the other as a descriminator. 
+
+Next, I will use add more functionality to actually make the videos in an automated fashion using movie editing libraries such as pymovie, and the new Stability image-to-video, and OpenAI vision models. 
+
+Finally, if I can get a desired video output, I will work on optimizing for API costs, since that will be a factor once I include the image and video models, which are quite expensive. 
