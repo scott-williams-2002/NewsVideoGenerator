@@ -7,18 +7,14 @@ import requests, json, lxml
 def get_article_text(URL):
     # Send an HTTP GET request to the URL
     response = requests.get(URL)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        # Find news articles using article tags or other relevant tags
-        article_elements = soup.find_all('article', class_='news-article')  
-
-        text_str = soup.get_text()
-        text_list = str(text_str).split("\n") #splits based on lines of article
-        parsed_list = [i for i in text_list if i] #cleans output
+    soup = BeautifulSoup(response.text, 'lxml')
+    all_text = ""
+    # Find news articles using article tags or other relevant tags
+    for p_element in soup.find_all('p'):
+        all_text += p_element.text
+    return all_text
     
-        return parsed_list
-    else:
-        return None
+    
 
 # based on a url passed in, a list of urls that are within than webpage is returned if any
 def find_related_urls(url):
@@ -55,7 +51,6 @@ def get_urls_from_google(query):
 
   while True:
     page_num += 1
-    print(f"page: {page_num}") 
     html = requests.get("https://www.google.com/search", params=params, headers=headers, timeout=30)
     soup = BeautifulSoup(html.text, 'lxml')
     #dont understand this stuff but helps get links associated
