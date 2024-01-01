@@ -86,6 +86,7 @@ def add_images():
     # find locations where it would be relevant to add in the image we found
     # can return script with "image one here" text or something like tha
     # or a json file which says which images to include in which order
+    #make seperate audio files spliced together for different times to include images or videos using googlecloudapi
 
 
 
