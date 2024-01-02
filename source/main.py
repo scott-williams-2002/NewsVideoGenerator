@@ -4,6 +4,7 @@ import time
 from os import get_terminal_size
 import sys
 import tqdm
+from TTS_Wrapper import TTS_Wrapper
 
 def main():
     #first call generate queries with inputted research question
@@ -12,10 +13,16 @@ def main():
     
     #then get urls
     summaries = get_summaries_from_queries(queries=queries, research_question=research_question)
+    article_json = generate_article(all_summaries=summaries, research_question=research_question)
 
-    print(summaries)
+    script_text = ''.join(article_json['part'])
 
-
+    tts = TTS_Wrapper()
+    tts.set_audio_config()
+    tts.set_voice()
+    tts.generate_speech(script_text)
+    tts.write_to_file(file_name="republican.mp3")
+    
 
         
         

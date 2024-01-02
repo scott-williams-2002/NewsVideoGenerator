@@ -30,7 +30,7 @@ def get_summary_prompt(research_question, article_text):
 def get_article_writer_prompt(research_question, summaries):
     #example script in another python file going to come up with alternative solution but good enough for now
     return [
-        {"role": "system", "content": f"You are a writer who creates scripts based on a series of summarized news articles in the style of the following script for short form content in videos that should not last longer than one minute. Here is the example script which your short form video scripts should mimic the style of this video script: {jake_tran_vatican_script}. Using the following article summaries, write a short form video script (that should be less than one minute in length) that discusses the video's topic which will be given. The article summaries will appear in a json format with the summary and source. If you use information from one of the summaries, make sure to include a statement like this: 'according to The New York Times...'. NEVER MAKE ANY INFORMATION UP. MAKE THE SCRIPT LENGTH FOR A VIDEO WHICH IS LESS THAN ONE MINUTE. DO NOT LIE. ALL NEWS INCLUDED IN THE SCRIPT SHOULD BE SOURCED FROM THE SUMMARIES GIVEN."},
+        {"role": "system", "content": f"You are a writer who creates scripts based on a series of summarized news articles in the style of the following script for short form content in videos that should not last longer than 40 seconds. Here is the example script which your short form video scripts should mimic the style of this video script: {jake_tran_vatican_script}. Using the following article summaries, write a short form video script (that should be around 40 seconds in length) that discusses the video's topic which will be given. The article summaries will appear in a json format with the summary and source. If you use information from one of the summaries, make sure to include a statement like this: 'according to The New York Times...'. The script should be outputted in a json format with paragraphs under a 'part' category and accompanying image or video suggestions under a 'visual' category name. NEVER MAKE ANY INFORMATION UP. MAKE THE SCRIPT LENGTH FOR A VIDEO WHICH IS LESS THAN ONE MINUTE. DO NOT LIE. ALL NEWS INCLUDED IN THE SCRIPT SHOULD BE SOURCED FROM THE SUMMARIES GIVEN."},
         {"role": "user", "content": f"The article summaries are here:{summaries}. Write a short form video script with the following topic: {research_question}"}
     ]
 #returns only useful headlines and urls as a list of dictionaries
@@ -67,13 +67,16 @@ def get_summaries_from_queries(queries, research_question):
             summary = summarize_article(research_question=research_question, url= article['link'])
             summaries += str(summary)
             summaries += "\n"
-    os.system('cls' if os.name == 'nt' else 'clear') #clears the previous progress bar
+        os.system('cls' if os.name == 'nt' else 'clear') #clears the previous progress bar
         
     return summaries #returns a large string of summaries and citations for articles found using all queries
 
 
-def generate_article(relevant_urls):
-    pass
+def generate_article(all_summaries, research_question):
+    prompt = get_article_writer_prompt(research_question=research_question, summaries=all_summaries)
+    model = GPT_Wrapper()
+    model_output = model.model_call_json(prompt=prompt, temp=0.15)
+    return model_output
     #summarize each article into three sentences (can be passed in by function)
     # put all together into new api call to make an article (use prompt engineering to make it more captivating: "you are a news/story writer make a captingvtnng story about this research topic")
     # after put together, should have another engineered prompt to act as discriminator, checking it against another type of script like jake tran's style of script

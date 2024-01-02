@@ -18,6 +18,7 @@ class TTS_Wrapper:
         synthesis_input = texttospeech.SynthesisInput(text=input_text) #correct input data structure
         self.current_response = self.client.synthesize_speech(input=synthesis_input, voice=self.voice, audio_config=self.audio_encoding)
     
+    #writes to output_audio_files folder in source directory
     def write_to_file(self, file_name="output.mp3"):
         #get output directory path and create directory if doesn't exist already
         new_dir_path = os.path.abspath("output_audio_files")
@@ -44,11 +45,7 @@ class TTS_Wrapper:
         
 
 
-tts = TTS_Wrapper()
-tts.set_audio_config()
-tts.set_voice()
-tts.generate_speech("don't stop trying")
-tts.write_to_file("test.mp3")
+
 
 
   
