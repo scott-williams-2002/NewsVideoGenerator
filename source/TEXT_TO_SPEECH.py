@@ -18,7 +18,7 @@ def synthesize_speech(text, output_filename):
 
     # Set the audio configuration
     audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3, pitch = -4.0, speaking_rate=1, effects_profile_id = ["handset-class-device"])
-    texttospeech.package_version
+    #texttospeech.package_version
 
     # Perform the text-to-speech request
     response = client.synthesize_speech(input=input_text, voice=voice, audio_config=audio_config)
