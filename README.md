@@ -5,3 +5,6 @@ The goal of this project is to incorporate three use cases of generative AI to c
 Next, I will use add more functionality to actually make the videos in an automated fashion using movie editing libraries such as pymovie, and the new Stability image-to-video, and OpenAI vision models. 
 
 Finally, if I can get a desired video output, I will work on optimizing for API costs, since that will be a factor once I include the image and video models, which are quite expensive. 
+
+UPDATE (1/2/2024):
+A new class has been added called TTS_Wrapper() which incorporates google cloud's text-to-speech service, which is integrated via a custom api. The api key can be generated and saved as a json file when creating the custom service in google cloud. The path to this key will be specified as an environment variable called GOOGLE_APPLICATION_CREDENTIALS(see env.example). The wrapper class encapsulates the voice configuration and api call for simplicity and writes audio data in an mp3 or wav format to the 'output_audio_files' directory which is located in 'source'.
