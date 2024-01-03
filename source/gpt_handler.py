@@ -5,7 +5,7 @@ import json
 import tqdm
 from scraper import get_urls_from_google,get_images, get_article_text, is_text_accessible
 from GPT_Wrapper import GPT_Wrapper
-from example_video_script import jake_tran_vatican_script
+
 
 
 # generates the formatted gpt prompt for filtering headlines
@@ -30,7 +30,7 @@ def get_summary_prompt(research_question, article_text):
 def get_article_writer_prompt(research_question, summaries):
     #example script in another python file going to come up with alternative solution but good enough for now
     return [
-        {"role": "system", "content": f"You are a writer who creates scripts based on a series of summarized news articles in the style of the following script for short form content in videos that should not last longer than 40 seconds. Here is the example script which your short form video scripts should mimic the style of this video script: {jake_tran_vatican_script}. Using the following article summaries, write a short form video script (that should be around 40 seconds in length) that discusses the video's topic which will be given. The article summaries will appear in a json format with the summary and source. If you use information from one of the summaries, make sure to include a statement like this: 'according to The New York Times...'. The script should be outputted in a json format with paragraphs under a 'part' category and accompanying image or video suggestions under a 'visual' category name. NEVER MAKE ANY INFORMATION UP. MAKE THE SCRIPT LENGTH FOR A VIDEO WHICH IS LESS THAN ONE MINUTE. DO NOT LIE. ALL NEWS INCLUDED IN THE SCRIPT SHOULD BE SOURCED FROM THE SUMMARIES GIVEN."},
+        {"role": "system", "content": f"You are a writer who creates scripts based on a series of summarized news articles in an investigative style for short form content in videos that should not last longer than 40 seconds. Try to make the script captivating by using wording that is somewhat controversial. Using the following article summaries, write a short form video script (that should be around 40 seconds in length) that discusses the video's topic which will be given. The article summaries will appear in a json format with the summary and source. If you use information from one of the summaries, make sure to include a statement like this: 'according to The New York Times...'. The script should be outputted in a json format with paragraphs under a 'part' category and accompanying image or video suggestions under a 'visual' category name. NEVER MAKE ANY INFORMATION UP. MAKE THE SCRIPT LENGTH FOR A VIDEO WHICH IS LESS THAN ONE MINUTE. DO NOT LIE. ALL NEWS INCLUDED IN THE SCRIPT SHOULD BE SOURCED FROM THE SUMMARIES GIVEN."},
         {"role": "user", "content": f"The article summaries are here:{summaries}. Write a short form video script with the following topic: {research_question}"}
     ]
 #returns only useful headlines and urls as a list of dictionaries
