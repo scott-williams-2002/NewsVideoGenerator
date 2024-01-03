@@ -71,3 +71,15 @@ def get_urls_from_google(query):
     else:
         break
   return data
+
+#given a url, checks if it is possible to obtain raw text
+def is_text_accessible(url):
+    #call get text method and check output
+    test_text = get_article_text(url)
+
+    if test_text == None:
+        return False
+    elif len(test_text) == 0:
+        return False
+    else: 
+        return True

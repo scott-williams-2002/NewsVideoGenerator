@@ -1,5 +1,5 @@
 from gpt_handler import *
-from scraper import get_urls_from_google
+from scraper import get_urls_from_google, get_article_text
 import time
 from os import get_terminal_size
 import sys
@@ -24,8 +24,14 @@ def main():
     tts.write_to_file(file_name="republican.mp3")
     
 
-        
-        
+def test():
+    text = get_article_text("https://www.google.com/finance/quote/GOOGL:NASDAQ")
+    if len(text)==0:
+        print("none")
+
+    else:
+        print(text) 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    test()

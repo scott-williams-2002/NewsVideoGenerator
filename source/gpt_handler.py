@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 import json
 import tqdm
-from scraper import get_urls_from_google,get_images, get_article_text
+from scraper import get_urls_from_google,get_images, get_article_text, is_text_accessible
 from GPT_Wrapper import GPT_Wrapper
 from example_video_script import jake_tran_vatican_script
 
@@ -64,9 +64,10 @@ def get_summaries_from_queries(queries, research_question):
         useful_headlines = filter_headlines(headlines_and_urls=headlines_and_urls_google, research_question=research_question)
         print(f'\nSummarizing {len(useful_headlines)} articles for the query: {query}')
         for article in useful_headlines:
-            summary = summarize_article(research_question=research_question, url= article['link'])
-            summaries += str(summary)
-            summaries += "\n"
+            if is_text_accessible(article['link']): #checks if text can be obtained from url to avoid calling gpt with no article text
+                summary = summarize_article(research_question=research_question, url= article['link'])
+                summaries += str(summary)
+                summaries += "\n"
         os.system('cls' if os.name == 'nt' else 'clear') #clears the previous progress bar
         
     return summaries #returns a large string of summaries and citations for articles found using all queries
