@@ -107,3 +107,11 @@ print(filtered)'''
 
 #summarize_article(url="https://www.forbes.com/sites/richardnieva/2023/12/20/google-on-trial-2023/?sh=3227d7b97662", research_question="what are some issues with large tech companies?")
 
+'''
+Need to add RSG / vector embedding instead of summarize to get better contents
+    - first take all of the article text and save as a large list for the research question
+    - find a way to separate these contents into chunks and embed them as vectors
+    - find the k closest/most similar vectors and use their contents in article writer prompt
+        - can also have seperately engineered prompts for sections of generated script to reduce halucination and have more control over the style
+    - when using the vector indices, which correspond to text and sources, reference the sources in script somehow
+'''
