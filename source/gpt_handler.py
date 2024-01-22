@@ -44,7 +44,7 @@ def filter_headlines(headlines_and_urls, research_question):
 def generate_query(research_question, num_questions):
     model = GPT_Wrapper()
     prompt = get_query_prompt(research_question=research_question, num_questions=num_questions)
-    model_output = model.model_call_json(prompt=prompt, temp=0.3)
+    model_output = model.model_call_json(prompt=prompt, temp=0.7)
     return list(model_output['queries'])
 
 #given a research question and url, the model returns a 3 sentence summary that includes only the main points and date of publication if possible

@@ -8,11 +8,11 @@ from Editor_Model import Editor_Model
 from data_storage import *
 
 def main():
-    '''
+
     #first call generate queries with inputted research question
     script_name = str(input("Enter a title for this script: "))
     research_question = str(input("Enter a video topic/ research question: "))
-    queries = generate_query(research_question=research_question, num_questions=5)
+    queries = generate_query(research_question=research_question, num_questions=2)
     
     #then get urls
     summaries = get_summaries_from_queries(queries=queries, research_question=research_question)
@@ -20,16 +20,16 @@ def main():
 
     #save script to file
     save_script_as_json(article_json, script_name= script_name)
-    '''
 
-    article_json = get_json_contents(script_name="iran_news")
+
+    #article_json = get_json_contents(script_name="iran_news")
     script_text_only = ' '.join(article_json['part'])
     print(script_text_only)
     tts = TTS_Wrapper()
     tts.set_audio_config()
     tts.set_voice()
     tts.generate_speech(script_text_only)
-    tts.write_to_file(file_name="republican.mp3")
+    tts.write_to_file(file_name=str(script_name + ".mp3"))
     
 
    
